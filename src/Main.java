@@ -2,6 +2,9 @@ import model.Epic;
 import model.Subtask;
 import model.Task;
 import model.TaskState;
+import service.InMemoryHistoryManager;
+import service.InMemoryTaskManager;
+import service.Managers;
 import service.TaskManager;
 
 import java.util.ArrayList;
@@ -11,7 +14,8 @@ public class Main {
     public static void main(String[] args) {
 
         System.out.println("Поехали!");
-        TaskManager taskManager = new TaskManager();
+        //TaskManager taskManager = new InMemoryTaskManager(new InMemoryHistoryManager());
+        TaskManager taskManager = Managers.getDefaultTaskManager();
 
         // создали две задачи
         Task task1 = taskManager.addTask(new Task("Первая задача", "Описание первой задачи", TaskState.NEW));
