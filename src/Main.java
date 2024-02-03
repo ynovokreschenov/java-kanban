@@ -23,17 +23,18 @@ public class Main {
 
         // получаем задачу по идентификатору
         Task taskFromManager = taskManager.getTask(task1.getId());
-        System.out.println("Получаем задачу по идентификатору: " + taskFromManager);
+        System.out.println(String.format("Получаем задачу по идентификатору: ", taskFromManager));
+
 
         // обновляем параметры задачи и проверяем что они сохранились
         Task taskNew = new Task(task2.getTitle(), task2.getDescription()+"123", TaskState.IN_PROGRESS);
         taskNew.setId(task2.getId());
         taskManager.updateTask(taskNew);
-        System.out.println("Проверяем измененную задачу" + taskManager.getTask(taskNew.getId()));
+        System.out.println(String.format("Проверяем измененную задачу", taskManager.getTask(taskNew.getId()) ));
 
         // удаляем задачу
         taskManager.deleteTask(task1.getId());
-        System.out.println("Проверяем список задач после удаления" + taskManager.getAllTasks());
+        System.out.println(String.format("Проверяем список задач после удаления", taskManager.getAllTasks() ));
 
         // создали эпик с двумя подзадачами
         Epic epic1 = taskManager.addEpic(new Epic("Первый эпик", "Описание первого эпика", TaskState.NEW));
@@ -46,8 +47,8 @@ public class Main {
                 epic1
         );
 
-        System.out.println("Печатаем эпик: " + epic1);
-        System.out.println("Печатаем список задач эпика: " + epic1.getSubtasks());
+        System.out.println(String.format("Печатаем эпик: ", epic1));
+        System.out.println(String.format("Печатаем список задач эпика: ", epic1.getSubtasks()));
 
         ArrayList<Task> taskList = taskManager.getAllTasks();
         //System.out.println("Печатаем список всех задач: " + taskManager.getAllTasks());
@@ -62,7 +63,7 @@ public class Main {
         System.out.println("Список эпиков");
         for (Epic epic : epicList){
             System.out.println(epic);
-            System.out.println("Список задач эпика " + epic.getId());
+            System.out.println(String.format("Список задач эпика ", epic.getId() ));
             for (Subtask subtask : epic.getSubtasks()){
                 System.out.println(subtask);
             }
