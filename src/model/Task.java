@@ -8,7 +8,7 @@ public class Task {
     private String title;
     private String description;
 
-    public Task(){
+    public Task() {
     }
 
     public Task(String title, String description, TaskState taskState) {
