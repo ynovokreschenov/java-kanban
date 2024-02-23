@@ -38,14 +38,14 @@ public class Main {
         System.out.println(String.format("history after remove: %s", history));
 
         // обновляем параметры задачи и проверяем что они сохранились
-        Task taskNew = new Task(task2.getTitle(), task2.getDescription()+"123", TaskState.IN_PROGRESS);
+        Task taskNew = new Task(task2.getTitle(), task2.getDescription() + "123", TaskState.IN_PROGRESS);
         taskNew.setId(task2.getId());
         taskManager.updateTask(taskNew);
-        System.out.println(String.format("Проверяем измененную задачу: %s", taskManager.getTask(taskNew.getId()) ));
+        System.out.println(String.format("Проверяем измененную задачу: %s", taskManager.getTask(taskNew.getId())));
 
         // удаляем задачу
         taskManager.deleteTask(task1.getId());
-        System.out.println(String.format("Проверяем список задач после удаления: %s", taskManager.getAllTasks() ));
+        System.out.println(String.format("Проверяем список задач после удаления: %s", taskManager.getAllTasks()));
 
         // создали эпик с двумя подзадачами
         Epic epic1 = taskManager.addEpic(new Epic("Первый эпик", "Описание первого эпика", TaskState.NEW));
@@ -67,15 +67,15 @@ public class Main {
         ArrayList<Subtask> subtaskList = taskManager.getAllSubtasks();
 
         System.out.println("Список задач");
-        for (Task task : taskList){
+        for (Task task : taskList) {
             System.out.println(task);
         }
 
         System.out.println("Список эпиков");
-        for (Epic epic : epicList){
+        for (Epic epic : epicList) {
             System.out.println(epic);
-            System.out.println(String.format("Список задач эпика: %s", epic.getId() ));
-            for (Subtask subtask : epic.getSubtasks()){
+            System.out.println(String.format("Список задач эпика: %s", epic.getId()));
+            for (Subtask subtask : epic.getSubtasks()) {
                 System.out.println(subtask);
             }
         }
