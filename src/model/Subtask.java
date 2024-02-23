@@ -18,6 +18,14 @@ public class Subtask extends Task {
     }
 
     @Override
+    public void setState(TaskState state) {
+        super.setState(state);
+        if (epic != null) {
+            epic.calculateEpicState();
+        }
+    }
+
+    @Override
     public String toString() {
         return "model.Subtask{" +
                 "epicId=" + epic.getId() + ", " +
