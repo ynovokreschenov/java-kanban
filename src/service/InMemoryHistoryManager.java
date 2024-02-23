@@ -6,14 +6,14 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-public class InMemoryHistoryManager implements HistoryManager{
+public class InMemoryHistoryManager implements HistoryManager {
 
-    private static class Node{
+    private static class Node {
         Task item;
         Node next;
         Node prev;
 
-        Node(Node prev, Task element, Node next){
+        Node(Node prev, Task element, Node next) {
             this.item = element;
             this.next = next;
             this.prev = prev;
@@ -38,7 +38,7 @@ public class InMemoryHistoryManager implements HistoryManager{
     }
 
     @Override
-    public void remove(int id){
+    public void remove(int id) {
         Node node = history.get(id);
         if (node != null) {
             removeNode(node);
@@ -49,30 +49,30 @@ public class InMemoryHistoryManager implements HistoryManager{
     public List<Task> getTasks() {
         ArrayList<Task> list = new ArrayList<>();
         Node current = first;
-        while (current != null){
+        while (current != null) {
             list.add(current.item);
             current = current.next;
         }
         return list;
     }
 
-    private void linkLast(Task task){
+    private void linkLast(Task task) {
         final Node lastNode = last;
         final Node newNode = new Node(lastNode, task, null);
         last = newNode;
-        if (lastNode == null){
+        if (lastNode == null) {
             first = newNode;
         } else {
             lastNode.next = newNode;
         }
         history.put(task.getId(), newNode);
     }
-    private void removeNode(Node node){
+    private void removeNode(Node node) {
         int index = node.item.getId();
         if (history.containsKey(index)) {
             Node nodePrev = node.prev;
             Node nodeNext = node.next;
-            if (nodePrev == null){
+            if (nodePrev == null) {
                 // если попали на первую ноду
                 if (nodeNext != null) {
                     nodeNext.prev = null;
