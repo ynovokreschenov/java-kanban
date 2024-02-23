@@ -13,14 +13,13 @@ public class InMemoryTaskManager implements TaskManager {
     private final HashMap<Integer, Task> tasks;
     private final HashMap<Integer, Epic> epics;
     private final HashMap<Integer, Subtask> subtasks;
+    private final HistoryManager historyStorage;
 
-    private final HistoryManager historyStorge;
-
-    public InMemoryTaskManager(InMemoryHistoryManager inMemoryHistoryManager){
+    public InMemoryTaskManager(HistoryManager historyManager){ //InMemoryHistoryManager inMemoryHistoryManager
         this.tasks = new HashMap<>();
         this.subtasks = new HashMap<>();
         this.epics = new HashMap<>();
-        this.historyStorge = inMemoryHistoryManager;
+        this.historyStorage = historyManager; // inMemoryHistoryManager
     }
 
     private int getNextTaskId(){
@@ -29,7 +28,7 @@ public class InMemoryTaskManager implements TaskManager {
 
     @Override
     public List<Task> getHistory() {
-        return historyStorge.getHistory();
+        return historyStorage.getTasks();
     }
     // Методы Task
     @Override
@@ -43,7 +42,7 @@ public class InMemoryTaskManager implements TaskManager {
     @Override
     public Task getTask(int id){
         if (tasks.containsKey(id)) {
-            historyStorge.add(tasks.get(id));
+            historyStorage.add(tasks.get(id));
             return tasks.get(id);
         }
         else {
@@ -91,7 +90,7 @@ public class InMemoryTaskManager implements TaskManager {
     @Override
     public Epic getEpic(int id){
         if (epics.containsKey(id)) {
-            historyStorge.add(epics.get(id));
+            historyStorage.add(epics.get(id));
             return epics.get(id);
         } else {
             return null;
@@ -151,7 +150,7 @@ public class InMemoryTaskManager implements TaskManager {
     @Override
     public Subtask getSubtask(int id){
         if (subtasks.containsKey(id)) {
-            historyStorge.add(subtasks.get(id));
+            historyStorage.add(subtasks.get(id));
             return subtasks.get(id);
         } else {
             return null;
