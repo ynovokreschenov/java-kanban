@@ -18,6 +18,7 @@ public class Epic extends Task {
 
     public void setSubtasks(ArrayList<Subtask> subtasks) {
         this.subtasks = subtasks;
+        this.calculateEpicState();
     }
 
     public void calculateEpicState() {
