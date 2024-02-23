@@ -67,6 +67,7 @@ public class InMemoryHistoryManager implements HistoryManager {
         }
         history.put(task.getId(), newNode);
     }
+
     private void removeNode(Node node) {
         int index = node.item.getId();
         if (history.containsKey(index)) {
