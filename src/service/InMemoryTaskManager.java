@@ -35,7 +35,7 @@ public class InMemoryTaskManager implements TaskManager {
     public Task addTask(Task task) {
         int nextId = getNextTaskId();
         task.setId(nextId);
-        tasks.put(task.getId(), task);
+        tasks.put(nextId, task);
         return task;
     }
 
@@ -72,9 +72,10 @@ public class InMemoryTaskManager implements TaskManager {
 
     @Override
     public void deleteAllTasks() {
-        for (Task task : tasks.values()) {
-            tasks.remove(task.getId());
-        }
+        //for (Task task : tasks.values()) {
+        //    tasks.remove(task.getId());
+        //}
+        tasks.clear();
     }
 
     // Методы Epic
@@ -191,9 +192,10 @@ public class InMemoryTaskManager implements TaskManager {
                     epic = subtask.getEpic();
                 }
                 subtasks.remove(subtask.getId());
+            }
+            if (epic != null) {
                 epic.calculateEpicState();
             }
-            epic.calculateEpicState();
         }
     }
 }

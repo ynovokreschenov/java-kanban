@@ -50,7 +50,7 @@ public class Main {
         // создали эпик с двумя подзадачами
         Epic epic1 = taskManager.addEpic(new Epic("Первый эпик", "Описание первого эпика", TaskState.NEW));
         System.out.println(String.format("Печатаем эпик нет задач: %s", epic1));
-        Subtask subtask1 = new Subtask("Первая подзадача первого эпика", "Описание подзадачи первого эпика", TaskState.NEW);
+        Subtask subtask1 = new Subtask("Первая подзадача первого эпика", "Описание подзадачи первого эпика", TaskState.IN_PROGRESS);
         taskManager.addSubtask(subtask1, epic1);
         System.out.println(String.format("Печатаем эпик одна задача NEW: %s", epic1));
         subtask1.setState(TaskState.IN_PROGRESS);
@@ -65,7 +65,7 @@ public class Main {
         System.out.println(String.format("Печатаем список задач эпика: %s", epic1.getSubtasks()));
 
         ArrayList<Task> taskList = taskManager.getAllTasks();
-        //System.out.println("Печатаем список всех задач: %s" + taskManager.getAllTasks());
+        System.out.println("Печатаем список всех задач: " + taskManager.getAllTasks());
         ArrayList<Epic> epicList = taskManager.getAllEpics();
         ArrayList<Subtask> subtaskList = taskManager.getAllSubtasks();
 
@@ -73,6 +73,9 @@ public class Main {
         for (Task task : taskList) {
             System.out.println(task);
         }
+
+        taskManager.deleteAllTasks();
+        System.out.println("Печатаем список всех задач после удаления: " + taskManager.getAllTasks());
 
         System.out.println("Список эпиков");
         for (Epic epic : epicList) {

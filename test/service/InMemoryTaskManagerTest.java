@@ -84,7 +84,7 @@ class InMemoryTaskManagerTest {
         assertEquals(TaskState.NEW, savedEpic.getState(), "Статусы не совпадают");
 
         Subtask subtask = new Subtask("Первая подзадача", "Описание первой подзадачи", TaskState.NEW);
-        subtask.setEpic(epic);
+        taskManager.addSubtask(subtask, epic);
         assertTrue(taskManager.getEpicSubtasks(epicId).contains(subtask), "Список подзадач эпика не содержит подзадачи");
     }
 

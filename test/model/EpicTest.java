@@ -29,7 +29,6 @@ class EpicTest {
     @Test
     public void calculateEpicStateTest() {
         assertEquals(TaskState.NEW, epic.getState(),"Не совпадает начальный статус эпика");
-
         Subtask subtask1 = new Subtask("Подзадача1", "Описание подзадачи1", TaskState.NEW);
         Subtask subtask2 = new Subtask("Подзадача2", "Описание подзадачи2", TaskState.NEW);
         ArrayList<Subtask> subtasks = new ArrayList<>();
