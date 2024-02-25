@@ -72,9 +72,6 @@ public class InMemoryTaskManager implements TaskManager {
 
     @Override
     public void deleteAllTasks() {
-        //for (Task task : tasks.values()) {
-        //    tasks.remove(task.getId());
-        //}
         tasks.clear();
     }
 
