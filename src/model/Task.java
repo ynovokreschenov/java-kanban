@@ -8,10 +8,10 @@ public class Task {
     private String title;
     private String description;
 
-    public Task(){
+    public Task() {
     }
 
-    public Task(String title, String description, TaskState taskState){
+    public Task(String title, String description, TaskState taskState) {
         this.title = title;
         this.description = description;
         this.state = taskState;
@@ -29,7 +29,7 @@ public class Task {
         return id;
     }
 
-    public void setId(int id){
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -37,7 +37,7 @@ public class Task {
         return title;
     }
 
-    public void setTitle(String title){
+    public void setTitle(String title) {
         this.title = title;
     }
 
@@ -45,7 +45,7 @@ public class Task {
         return state;
     }
 
-    public void setState(TaskState state){
+    public void setState(TaskState state) {
         this.state = state;
     }
 

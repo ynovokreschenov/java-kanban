@@ -1,7 +1,5 @@
 package model;
 
-import java.util.ArrayList;
-
 public class Subtask extends Task {
     private Epic epic;
 
@@ -11,12 +9,20 @@ public class Subtask extends Task {
         this.setState(taskState);
     }
 
-    public Epic getEpic(){
+    public Epic getEpic() {
         return epic;
     }
 
     public void setEpic(Epic epic) {
         this.epic = epic;
+    }
+
+    @Override
+    public void setState(TaskState state) {
+        super.setState(state);
+        if (epic != null) {
+            epic.calculateEpicState();
+        }
     }
 
     @Override
@@ -29,5 +35,4 @@ public class Subtask extends Task {
                 ", description='" + super.getDescription() + '\'' +
                 '}';
     }
-
 }

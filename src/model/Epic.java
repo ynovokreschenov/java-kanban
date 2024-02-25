@@ -12,18 +12,22 @@ public class Epic extends Task {
         subtasks = new ArrayList<>();
     }
 
-    public ArrayList<Subtask> getSubtasks(){
+    public ArrayList<Subtask> getSubtasks() {
         return subtasks;
     }
 
-    public void setSubtasks(ArrayList<Subtask> subtasks){
+    public void setSubtasks(ArrayList<Subtask> subtasks) {
         this.subtasks = subtasks;
+        for (Subtask subtask : subtasks) {
+            subtask.setEpic(this);
+        }
+        this.calculateEpicState();
     }
 
-    public void calculateEpicState(){
+    public void calculateEpicState() {
         TaskState epicState = TaskState.IN_PROGRESS;
         ArrayList<Subtask> epicSubtasks = getSubtasks();
-        if (epicSubtasks.size() == 0){
+        if (epicSubtasks.size() == 0) {
             epicState = TaskState.NEW;
         } else {
             int countNewSubtasks = 0;
