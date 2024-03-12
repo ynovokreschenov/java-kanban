@@ -9,6 +9,7 @@ id,type,name,status,description,epic
 10,TASK,Первая задача123,NEW,Описание первой задачи123,
 11,TASK,Первая задача123,NEW,Описание первой задачи123,
 12,TASK,Первая задача123,NEW,Описание первой задачи123,
+13,TASK,Первая задача123,NEW,Описание первой задачи123,
 2,EPIC,Epic2,DONE,Description epic2,
 3,SUBTASK,Sub Task2,DONE,Description sub task3,2
-1,2,12,
+1,2,12,13,
