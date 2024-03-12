@@ -49,7 +49,7 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
     }
 
     @Override
-    public Task getTask(int id){
+    public Task getTask(int id) {
         Task task = super.getTask(id);
         save();
         return task;
@@ -135,21 +135,25 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
             // Заголовок id,type,name,status,description,epic
             writer.append("id,type,name,status,description,epic");
             writer.newLine();
+
             // Сохраняем задачи
             for (Map.Entry<Integer, Task> entry : tasks.entrySet()) {
                 writer.append(toString(entry.getValue()));
                 writer.newLine();
             }
+
             // Сохраняем эпики
             for (Map.Entry<Integer, Epic> entry : epics.entrySet()) {
                 writer.append(toString(entry.getValue()));
                 writer.newLine();
             }
+
             // Сохраняем подзадачи
             for (Map.Entry<Integer, Subtask> entry : subtasks.entrySet()) {
                 writer.append(toString(entry.getValue()));
                 writer.newLine();
             }
+
             // история
             writer.append(toString(historyStorage));
             writer.newLine();
@@ -162,19 +166,21 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
         int maxId = 0;
         try (final BufferedReader reader = new BufferedReader(new FileReader(file, UTF_8))) {
             reader.readLine(); // Пропускаем заголовок
+
             while (true) {
                 String line = reader.readLine();
-                //System.out.println(line);
+
                 if (line == null) {
                     break;
                 }
+
                 if (line.isEmpty()) {
                     break;
                 }
+
                 // Задачи
                 final Task task = fromString(line);
                 if (task != null) {
-                    //System.out.println(task);
                     final int id = task.getId();
                     if (task.getType() == TaskType.TASK) {
                         tasks.put(id, task);
@@ -183,6 +189,7 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
                     } else if (task.getType() == TaskType.SUBTASK) {
                         subtasks.put(id, (Subtask) task);
                     }
+
                     // Сохраняем значение счетчика для taskIdCounter
                     if (maxId < id) {
                         maxId = id;
@@ -190,7 +197,7 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
                 } else {
                     // История
                     List<Integer> historyList = historyFromString(line);
-                    for (int histId: historyList){
+                    for (int histId: historyList) {
                         super.getTask(histId);
                         super.getSubtask(histId);
                         super.getEpic(histId);
@@ -206,7 +213,5 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
         }
         // генератор
         taskIdCounter = maxId;
-
     }
-
 }
