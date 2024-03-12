@@ -4,7 +4,6 @@ import model.*;
 
 import java.io.*;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -59,7 +58,7 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
         //id,type,name,status,description,epic
         String line = task.getId() + "," + task.getType() + "," + task.getTitle() + "," +
                 task.getState().toString() + "," + task.getDescription() + ",";
-        if (task.getType() == TaskType.SUBTASK){
+        if (task.getType() == TaskType.SUBTASK) {
             line += task.getEpicId();
         }
         return line;
