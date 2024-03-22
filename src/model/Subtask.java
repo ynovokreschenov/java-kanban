@@ -35,4 +35,14 @@ public class Subtask extends Task {
                 ", description='" + super.getDescription() + '\'' +
                 '}';
     }
+
+    @Override
+    public TaskType getType() {
+        return TaskType.SUBTASK;
+    }
+
+    @Override
+    public Integer getEpicId() {
+        return epic.getId();
+    }
 }

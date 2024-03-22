@@ -4,8 +4,11 @@ import model.Task;
 import model.TaskState;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
 import java.util.List;
-import static org.junit.jupiter.api.Assertions.*;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 class InMemoryHistoryManagerTest {
     private static HistoryManager historyManager;
@@ -14,6 +17,7 @@ class InMemoryHistoryManagerTest {
     public void beforeEach() {
         historyManager = Managers.getDefaultHistory();
     }
+
     @Test
     void add() {
         Task task = new Task("Первая задача", "Описание первой задачи", TaskState.NEW);

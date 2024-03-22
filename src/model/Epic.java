@@ -49,4 +49,19 @@ public class Epic extends Task {
         }
         super.setState(epicState);
     }
+
+    @Override
+    public String toString() {
+        return "model.Epic{" +
+                "id=" + super.getId() +
+                ", state=" + super.getState() +
+                ", title='" + super.getTitle() + '\'' +
+                ", description='" + super.getDescription() + '\'' +
+                '}';
+    }
+
+    @Override
+    public TaskType getType() {
+        return TaskType.EPIC;
+    }
 }

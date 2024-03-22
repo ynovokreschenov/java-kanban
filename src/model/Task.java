@@ -24,7 +24,6 @@ public class Task {
         this.description = task.description;
     }
 
-
     public int getId() {
         return id;
     }
@@ -78,5 +77,13 @@ public class Task {
     @Override
     public int hashCode() {
         return Objects.hash(id, state);
+    }
+
+    public Integer getEpicId() {
+        return null;
+    }
+
+    public TaskType getType() {
+        return TaskType.TASK;
     }
 }
