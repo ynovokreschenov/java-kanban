@@ -3,8 +3,6 @@ package service;
 import model.Epic;
 import model.Subtask;
 import model.Task;
-
-import java.time.LocalDateTime;
 import java.util.*;
 
 public class InMemoryTaskManager implements TaskManager {
@@ -46,7 +44,7 @@ public class InMemoryTaskManager implements TaskManager {
         }
     }
 
-    private boolean validateTaskPeriodCrossing(Task task){
+    private boolean validateTaskPeriodCrossing(Task task) {
         long crossTasks = prioritizedTasks.stream()
                 .filter((t) -> task.getStartTime().isAfter(t.getStartTime()) && task.getStartTime().isBefore(t.getEndTime()))
                 .filter((t) -> task.getEndTime().isAfter(t.getStartTime()) && task.getEndTime().isBefore(t.getEndTime()))
@@ -79,7 +77,7 @@ public class InMemoryTaskManager implements TaskManager {
     }
 
     @Override
-    public TreeSet<Task> getPrioritizedTasks(){
+    public TreeSet<Task> getPrioritizedTasks() {
         return prioritizedTasks;
     }
 
@@ -89,7 +87,7 @@ public class InMemoryTaskManager implements TaskManager {
             tasks.remove(id);
         }
         Task task = tasks.get(id);
-        if (prioritizedTasks.contains(task)){
+        if (prioritizedTasks.contains(task)) {
             prioritizedTasks.remove(task);
         }
     }
