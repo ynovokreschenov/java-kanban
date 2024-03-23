@@ -7,6 +7,8 @@ import model.TaskState;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.time.Duration;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -21,7 +23,13 @@ class InMemoryTaskManagerTest {
 
     @Test
     public void addAndGetTaskTest() {
-        Task newTask = new Task("Первая задача", "Описание первой задачи", TaskState.NEW);
+        Task newTask = new Task(
+                "Первая задача",
+                "Описание первой задачи",
+                TaskState.NEW,
+                LocalDateTime.of(2024, 3, 25, 10, 0),
+                Duration.ofDays(1)
+        );
         int taskId = taskManager.addTask(newTask).getId();
         Task savedTask = taskManager.getTask(taskId);
 
@@ -34,9 +42,21 @@ class InMemoryTaskManagerTest {
 
     @Test
     public void updateTaskTest() {
-        Task task = new Task("Первая задача", "Описание первой задачи", TaskState.NEW);
+        Task task = new Task(
+                "Первая задача",
+                "Описание первой задачи",
+                TaskState.NEW,
+                LocalDateTime.of(2024, 3, 26, 10, 0),
+                Duration.ofDays(1)
+        );
         int taskId = taskManager.addTask(task).getId();
-        Task updatedTask = new Task("Первая задача изменена", "Описание первой задачи изменено", TaskState.IN_PROGRESS);
+        Task updatedTask = new Task(
+                "Первая задача изменена",
+                "Описание первой задачи изменено",
+                TaskState.IN_PROGRESS,
+                LocalDateTime.of(2024, 3, 25, 10, 0),
+                Duration.ofDays(1)
+        );
         updatedTask.setId(taskId);
         taskManager.updateTask(updatedTask);
 
@@ -49,9 +69,27 @@ class InMemoryTaskManagerTest {
 
     @Test
     public void getAllDeleteAndDeleteAllTasksTest() {
-        Task task1 = new Task("Первая задача", "Описание первой задачи", TaskState.NEW);
-        Task task2 = new Task("Вторая задача", "Описание второй задачи", TaskState.NEW);
-        Task task3 = new Task("Третья задача", "Описание третьей задачи", TaskState.NEW);
+        Task task1 = new Task(
+                "Первая задача",
+                "Описание первой задачи",
+                TaskState.NEW,
+                LocalDateTime.of(2024, 3, 25, 10, 0),
+                Duration.ofDays(1)
+        );
+        Task task2 = new Task(
+                "Вторая задача",
+                "Описание второй задачи",
+                TaskState.NEW,
+                LocalDateTime.of(2024, 3, 23, 10, 0),
+                Duration.ofDays(1)
+        );
+        Task task3 = new Task(
+                "Третья задача",
+                "Описание третьей задачи",
+                TaskState.NEW,
+                LocalDateTime.of(2024, 3, 21, 10, 0),
+                Duration.ofDays(1)
+        );
         taskManager.addTask(task1);
         taskManager.addTask(task2);
         taskManager.addTask(task3);
@@ -83,7 +121,13 @@ class InMemoryTaskManagerTest {
         assertEquals("Описание эпика", savedEpic.getDescription(), "Описания не совпадают");
         assertEquals(TaskState.NEW, savedEpic.getState(), "Статусы не совпадают");
 
-        Subtask subtask = new Subtask("Первая подзадача", "Описание первой подзадачи", TaskState.NEW);
+        Subtask subtask = new Subtask(
+                "Первая подзадача",
+                "Описание первой подзадачи",
+                TaskState.NEW,
+                LocalDateTime.of(2024, 3, 25, 10, 0),
+                Duration.ofDays(1)
+        );
         taskManager.addSubtask(subtask, epic);
         assertTrue(taskManager.getEpicSubtasks(epicId).contains(subtask), "Список подзадач эпика не содержит подзадачи");
     }

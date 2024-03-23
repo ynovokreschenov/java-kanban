@@ -1,6 +1,9 @@
 package model;
 
+import java.time.Duration;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class Epic extends Task {
     private ArrayList<Subtask> subtasks;
@@ -25,6 +28,7 @@ public class Epic extends Task {
     }
 
     public void calculateEpicState() {
+        // Пересчитываем статус эпика
         TaskState epicState = TaskState.IN_PROGRESS;
         ArrayList<Subtask> epicSubtasks = getSubtasks();
         if (epicSubtasks.size() == 0) {
@@ -48,6 +52,20 @@ public class Epic extends Task {
             }
         }
         super.setState(epicState);
+
+        // Пересчитываем Временные параметры: дата начала, дата окончания, длительность
+        Duration epicDuration = Duration.ZERO;
+        LocalDateTime epicStartTime = null;
+        LocalDateTime epicEndTime;
+        for (Subtask subtask : epicSubtasks) {
+            epicDuration.plusMinutes(subtask.getDuration());
+            if (subtask.getStartTime().isBefore(epicStartTime)) {
+                epicStartTime = subtask.getStartTime();
+            }
+        }
+        this.setStartTime(epicStartTime);
+        this.setDuration(epicDuration);
+        this.setEndTime(epicStartTime.plus(epicDuration));
     }
 
     @Override
@@ -57,6 +75,8 @@ public class Epic extends Task {
                 ", state=" + super.getState() +
                 ", title='" + super.getTitle() + '\'' +
                 ", description='" + super.getDescription() + '\'' +
+                ", duration='" + super.getDuration() + '\'' +
+                ", startTime='" + super.getStartTimeFormatted() + '\'' +
                 '}';
     }
 

@@ -6,6 +6,7 @@ import model.Task;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.TreeSet;
 
 public interface TaskManager {
     // Методы Task
@@ -16,6 +17,8 @@ public interface TaskManager {
     void updateTask(Task task);
 
     ArrayList<Task> getAllTasks();
+
+    TreeSet<Task> getPrioritizedTasks();
 
     void deleteTask(int id);
 

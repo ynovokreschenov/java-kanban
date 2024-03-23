@@ -4,15 +4,15 @@ import model.Epic;
 import model.Subtask;
 import model.Task;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
+import java.time.LocalDateTime;
+import java.util.*;
 
 public class InMemoryTaskManager implements TaskManager {
     static int taskIdCounter;
     final HashMap<Integer, Task> tasks;
     final HashMap<Integer, Epic> epics;
     final HashMap<Integer, Subtask> subtasks;
+    TreeSet<Task> prioritizedTasks = new TreeSet<>(Comparator.comparing(Task::getStartTime));
     final HistoryManager historyStorage;
 
     public InMemoryTaskManager(HistoryManager historyManager) {
@@ -33,10 +33,25 @@ public class InMemoryTaskManager implements TaskManager {
 
     @Override
     public Task addTask(Task task) {
-        int nextId = getNextTaskId();
-        task.setId(nextId);
-        tasks.put(nextId, task);
-        return task;
+        if (validateTaskPeriodCrossing(task)) {
+            int nextId = getNextTaskId();
+            task.setId(nextId);
+            tasks.put(nextId, task);
+            if (task.getStartTime() != null) {
+                prioritizedTasks.add(task);
+            }
+            return task;
+        } else {
+            return null;
+        }
+    }
+
+    private boolean validateTaskPeriodCrossing(Task task){
+        long crossTasks = prioritizedTasks.stream()
+                .filter((t) -> task.getStartTime().isAfter(t.getStartTime()) && task.getStartTime().isBefore(t.getEndTime()))
+                .filter((t) -> task.getEndTime().isAfter(t.getStartTime()) && task.getEndTime().isBefore(t.getEndTime()))
+                .count();
+        return crossTasks == 0;
     }
 
     @Override
@@ -64,9 +79,18 @@ public class InMemoryTaskManager implements TaskManager {
     }
 
     @Override
+    public TreeSet<Task> getPrioritizedTasks(){
+        return prioritizedTasks;
+    }
+
+    @Override
     public void deleteTask(int id) {
         if (tasks.containsKey(id)) {
             tasks.remove(id);
+        }
+        Task task = tasks.get(id);
+        if (prioritizedTasks.contains(task)){
+            prioritizedTasks.remove(task);
         }
     }
 
