@@ -80,11 +80,12 @@ public class Task {
         return (int) duration.toMinutes();
     }
 
-    public void setDuration(Duration duration){
+    public void setDuration(Duration duration) {
         this.duration = duration;
         //this.endTime = startTime.plusMinutes(duration.toMinutes());
         this.endTime = startTime.plus(duration);
     }
+
     public String getStartTimeFormatted() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy.MM.dd HH:mm");
         return startTime.format(formatter);
@@ -94,7 +95,7 @@ public class Task {
         return startTime;
     }
 
-    public void setStartTime(LocalDateTime startTime){
+    public void setStartTime(LocalDateTime startTime) {
         this.startTime = startTime;
         //this.endTime = startTime.plus(duration);
     }
@@ -103,7 +104,7 @@ public class Task {
         this.endTime = endTime;
     }
 
-    public LocalDateTime getEndTime(){
+    public LocalDateTime getEndTime() {
         return this.endTime;
     }
 
