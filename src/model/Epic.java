@@ -11,6 +11,8 @@ public class Epic extends Task {
         this.setTitle(title);
         this.setDescription(description);
         this.setState(taskState);
+        //this.setStartTime(LocalDateTime.now());
+        //this.setDuration(Duration.ZERO);
         subtasks = new ArrayList<>();
     }
 
@@ -55,16 +57,24 @@ public class Epic extends Task {
         // Пересчитываем Временные параметры: дата начала, дата окончания, длительность
         Duration epicDuration = Duration.ZERO;
         LocalDateTime epicStartTime = null;
-        LocalDateTime epicEndTime;
+        LocalDateTime epicEndTime = null;
+        if (subtasks.size() > 0){
+            epicStartTime = subtasks.get(0).getStartTime();
+            //epicEndTime = subtasks.get(0).getEndTime();
+        }
         for (Subtask subtask : epicSubtasks) {
-            epicDuration.plusMinutes(subtask.getDuration());
-            if (subtask.getStartTime().isBefore(epicStartTime)) {
-                epicStartTime = subtask.getStartTime();
+            if (subtask.getStartTime() != null && subtask.getEndTime() != null) {
+                epicDuration.plusMinutes(subtask.getDuration());
+                if (subtask.getStartTime().isBefore(epicStartTime)) {
+                    epicStartTime = subtask.getStartTime();
+                }
             }
         }
-        this.setStartTime(epicStartTime);
-        this.setDuration(epicDuration);
-        this.setEndTime(epicStartTime.plus(epicDuration));
+        if (epicStartTime != null) {
+            this.setStartTime(epicStartTime);
+            this.setDuration(epicDuration);
+            this.setEndTime(epicStartTime.plus(epicDuration));
+        }
     }
 
     @Override

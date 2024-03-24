@@ -23,8 +23,8 @@ class EpicTest {
                 "Подзадача",
                 "Описание подзадачи",
                 TaskState.NEW,
-                LocalDateTime.of(2024, 3, 25, 10, 0),
-                Duration.ofDays(7));
+                LocalDateTime.of(2024, 3, 20, 10, 0),
+                Duration.ofDays(1));
         ArrayList<Subtask> subtasks = new ArrayList<>();
         subtasks.add(subtask);
         epic.setSubtasks(subtasks);
