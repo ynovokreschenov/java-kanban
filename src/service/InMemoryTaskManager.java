@@ -87,7 +87,7 @@ public class InMemoryTaskManager implements TaskManager {
             tasks.remove(id);
         }
         Task task = tasks.get(id);
-        if (prioritizedTasks.contains(task)) {
+        if (task != null){
             prioritizedTasks.remove(task);
         }
     }
