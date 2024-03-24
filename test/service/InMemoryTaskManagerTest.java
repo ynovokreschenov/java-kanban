@@ -97,9 +97,10 @@ class InMemoryTaskManagerTest {
 
         assertNotNull(tasks, "Задачи не возвращаются.");
         assertEquals(3, tasks.size(), "Неверное количество задач");
-        assertTrue(tasks.contains(task1), "Список всех задач не содержит добавленную задачу");
-        assertTrue(tasks.contains(task2), "Список всех задач не содержит добавленную задачу");
-        assertTrue(tasks.contains(task3), "Список всех задач не содержит добавленную задачу");
+        String testResponse = "Список всех задач не содержит добавленную задачу";
+        assertTrue(tasks.contains(task1), testResponse);
+        assertTrue(tasks.contains(task2), testResponse);
+        assertTrue(tasks.contains(task3), testResponse);
         taskManager.deleteTask(task1.getId());
         final List<Task> tasksAfterDelete = taskManager.getAllTasks();
         assertEquals(2, tasksAfterDelete.size(), "Неверное количество задач после удаления");
