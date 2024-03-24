@@ -3,6 +3,9 @@ package model;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.time.Duration;
+import java.time.LocalDateTime;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
@@ -11,7 +14,12 @@ class TaskTest {
 
     @BeforeEach
     public void beforeEach() {
-        task = new Task("Первая задача", "Описание первой задачи", TaskState.NEW);
+        task = new Task(
+                "Первая задача",
+                "Описание первой задачи",
+                TaskState.NEW,
+                LocalDateTime.of(2024, 3, 25, 10, 0),
+                Duration.ofDays(7));
     }
 
     @Test

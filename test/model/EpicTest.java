@@ -3,6 +3,8 @@ package model;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.time.Duration;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -17,7 +19,12 @@ class EpicTest {
 
     @Test
     public void setAndGetSubtaskTest() {
-        Subtask subtask = new Subtask("Подзадача", "Описание подзадачи", TaskState.NEW);
+        Subtask subtask = new Subtask(
+                "Подзадача",
+                "Описание подзадачи",
+                TaskState.NEW,
+                LocalDateTime.of(2024, 3, 20, 10, 0),
+                Duration.ofDays(1));
         ArrayList<Subtask> subtasks = new ArrayList<>();
         subtasks.add(subtask);
         epic.setSubtasks(subtasks);
@@ -29,8 +36,20 @@ class EpicTest {
     @Test
     public void calculateEpicStateTest() {
         assertEquals(TaskState.NEW, epic.getState(), "Не совпадает начальный статус эпика");
-        Subtask subtask1 = new Subtask("Подзадача1", "Описание подзадачи1", TaskState.NEW);
-        Subtask subtask2 = new Subtask("Подзадача2", "Описание подзадачи2", TaskState.NEW);
+        Subtask subtask1 = new Subtask(
+                "Подзадача1",
+                "Описание подзадачи1",
+                TaskState.NEW,
+                LocalDateTime.of(2024, 3, 25, 10, 0),
+                Duration.ofDays(1)
+        );
+        Subtask subtask2 = new Subtask(
+                "Подзадача2",
+                "Описание подзадачи2",
+                TaskState.NEW,
+                LocalDateTime.of(2024, 3, 27, 10, 0),
+                Duration.ofDays(1)
+        );
         ArrayList<Subtask> subtasks = new ArrayList<>();
         subtasks.add(subtask1);
         subtasks.add(subtask2);

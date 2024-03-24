@@ -1,5 +1,8 @@
 package model;
 
+import java.time.Duration;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Objects;
 
 public class Task {
@@ -7,14 +10,20 @@ public class Task {
     private TaskState state;
     private String title;
     private String description;
+    private LocalDateTime startTime = LocalDateTime.now();
+    private LocalDateTime endTime;
+    private Duration duration = Duration.ZERO;
 
     public Task() {
     }
 
-    public Task(String title, String description, TaskState taskState) {
+    public Task(String title, String description, TaskState taskState, LocalDateTime startTime, Duration duration) {
         this.title = title;
         this.description = description;
         this.state = taskState;
+        this.startTime = startTime;
+        this.duration = duration;
+        this.endTime = startTime.plus(duration);
     }
 
     public Task(Task task) {
@@ -22,6 +31,9 @@ public class Task {
         this.title = task.title;
         this.state = task.state;
         this.description = task.description;
+        this.startTime = task.startTime;
+        this.duration = task.duration;
+        this.endTime = startTime.plus(duration);
     }
 
     public int getId() {
@@ -56,6 +68,46 @@ public class Task {
         this.description = description;
     }
 
+    public Integer getEpicId() {
+        return null;
+    }
+
+    public TaskType getType() {
+        return TaskType.TASK;
+    }
+
+    public int getDuration() {
+        return (int) duration.toMinutes();
+    }
+
+    public void setDuration(Duration duration) {
+        this.duration = duration;
+        //this.endTime = startTime.plusMinutes(duration.toMinutes());
+        this.endTime = startTime.plus(duration);
+    }
+
+    public String getStartTimeFormatted() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy.MM.dd HH:mm");
+        return startTime.format(formatter);
+    }
+
+    public LocalDateTime getStartTime() {
+        return startTime;
+    }
+
+    public void setStartTime(LocalDateTime startTime) {
+        this.startTime = startTime;
+        //this.endTime = startTime.plus(duration);
+    }
+
+    protected void setEndTime(LocalDateTime endTime) {
+        this.endTime = endTime;
+    }
+
+    public LocalDateTime getEndTime() {
+        return this.endTime;
+    }
+
     @Override
     public String toString() {
         return "model.Task{" +
@@ -63,6 +115,8 @@ public class Task {
                 ", state=" + state +
                 ", title='" + title + '\'' +
                 ", description='" + description + '\'' +
+                ", duration='" + duration + '\'' +
+                ", startTime='" + startTime + '\'' +
                 '}';
     }
 
@@ -79,11 +133,4 @@ public class Task {
         return Objects.hash(id, state);
     }
 
-    public Integer getEpicId() {
-        return null;
-    }
-
-    public TaskType getType() {
-        return TaskType.TASK;
-    }
 }
