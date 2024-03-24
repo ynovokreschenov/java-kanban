@@ -58,9 +58,8 @@ public class Epic extends Task {
         Duration epicDuration = Duration.ZERO;
         LocalDateTime epicStartTime = null;
         LocalDateTime epicEndTime = null;
-        if (subtasks.size() > 0){
+        if (subtasks.size() > 0) {
             epicStartTime = subtasks.get(0).getStartTime();
-            //epicEndTime = subtasks.get(0).getEndTime();
         }
         for (Subtask subtask : epicSubtasks) {
             if (subtask.getStartTime() != null && subtask.getEndTime() != null) {
