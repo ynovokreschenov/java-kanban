@@ -1,5 +1,7 @@
 package model;
 
+import java.time.Duration;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 public class Epic extends Task {
@@ -9,6 +11,8 @@ public class Epic extends Task {
         this.setTitle(title);
         this.setDescription(description);
         this.setState(taskState);
+        //this.setStartTime(LocalDateTime.now());
+        //this.setDuration(Duration.ZERO);
         subtasks = new ArrayList<>();
     }
 
@@ -25,6 +29,7 @@ public class Epic extends Task {
     }
 
     public void calculateEpicState() {
+        // Пересчитываем статус эпика
         TaskState epicState = TaskState.IN_PROGRESS;
         ArrayList<Subtask> epicSubtasks = getSubtasks();
         if (epicSubtasks.size() == 0) {
@@ -48,6 +53,27 @@ public class Epic extends Task {
             }
         }
         super.setState(epicState);
+
+        // Пересчитываем Временные параметры: дата начала, дата окончания, длительность
+        Duration epicDuration = Duration.ZERO;
+        LocalDateTime epicStartTime = null;
+        LocalDateTime epicEndTime = null;
+        if (subtasks.size() > 0) {
+            epicStartTime = subtasks.get(0).getStartTime();
+        }
+        for (Subtask subtask : epicSubtasks) {
+            if (subtask.getStartTime() != null && subtask.getEndTime() != null) {
+                epicDuration.plusMinutes(subtask.getDuration());
+                if (subtask.getStartTime().isBefore(epicStartTime)) {
+                    epicStartTime = subtask.getStartTime();
+                }
+            }
+        }
+        if (epicStartTime != null) {
+            this.setStartTime(epicStartTime);
+            this.setDuration(epicDuration);
+            this.setEndTime(epicStartTime.plus(epicDuration));
+        }
     }
 
     @Override
@@ -57,6 +83,8 @@ public class Epic extends Task {
                 ", state=" + super.getState() +
                 ", title='" + super.getTitle() + '\'' +
                 ", description='" + super.getDescription() + '\'' +
+                ", duration='" + super.getDuration() + '\'' +
+                ", startTime='" + super.getStartTimeFormatted() + '\'' +
                 '}';
     }
 

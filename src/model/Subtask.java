@@ -1,12 +1,18 @@
 package model;
 
+import java.time.Duration;
+import java.time.LocalDateTime;
+
 public class Subtask extends Task {
     private Epic epic;
 
-    public Subtask(String title, String description, TaskState taskState) {
+    public Subtask(String title, String description, TaskState taskState, LocalDateTime startTime, Duration duration) {
         this.setTitle(title);
         this.setDescription(description);
         this.setState(taskState);
+        this.setStartTime(startTime);
+        this.setDuration(duration);
+        //this.endTime = startTime.plus(duration);
     }
 
     public Epic getEpic() {
@@ -33,6 +39,8 @@ public class Subtask extends Task {
                 ", state=" + super.getState() +
                 ", title='" + super.getTitle() + '\'' +
                 ", description='" + super.getDescription() + '\'' +
+                ", duration='" + super.getDuration() + '\'' +
+                ", startTime='" + super.getStartTimeFormatted() + '\'' +
                 '}';
     }
 
