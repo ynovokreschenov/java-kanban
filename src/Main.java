@@ -1,5 +1,6 @@
 import model.Task;
 import model.TaskState;
+import server.HttpTaskServer;
 import service.*;
 
 import java.io.File;
@@ -39,9 +40,12 @@ public class Main {
                 Duration.ofDays(17)
         ));
 
-        System.out.println("Список задач " + taskManagerFileBacked.getAllTasks());
-        System.out.println("Приоритизированный список задач: " + taskManagerFileBacked.getPrioritizedTasks());
-        System.out.println("Список эпиков " + taskManagerFileBacked.getAllEpics());
-        System.out.println("Список подзадач " + taskManagerFileBacked.getAllSubtasks());
+        HttpTaskServer server = new HttpTaskServer(taskManagerFileBacked);
+        server.start();
+
+//        System.out.println("Список задач " + taskManagerFileBacked.getAllTasks());
+//        System.out.println("Приоритизированный список задач: " + taskManagerFileBacked.getPrioritizedTasks());
+//        System.out.println("Список эпиков " + taskManagerFileBacked.getAllEpics());
+//        System.out.println("Список подзадач " + taskManagerFileBacked.getAllSubtasks());
     }
 }
