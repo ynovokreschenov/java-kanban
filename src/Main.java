@@ -42,10 +42,5 @@ public class Main {
 
         HttpTaskServer server = new HttpTaskServer(taskManagerFileBacked);
         server.start();
-
-//        System.out.println("Список задач " + taskManagerFileBacked.getAllTasks());
-//        System.out.println("Приоритизированный список задач: " + taskManagerFileBacked.getPrioritizedTasks());
-//        System.out.println("Список эпиков " + taskManagerFileBacked.getAllEpics());
-//        System.out.println("Список подзадач " + taskManagerFileBacked.getAllSubtasks());
     }
 }
