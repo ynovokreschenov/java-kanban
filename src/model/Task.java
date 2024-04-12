@@ -6,7 +6,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.Objects;
 
 public class Task {
-    private int id;
+    private Integer id;
     private TaskState state;
     private String title;
     private String description;
@@ -36,7 +36,7 @@ public class Task {
         this.endTime = startTime.plus(duration);
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
